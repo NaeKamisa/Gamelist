@@ -5,11 +5,16 @@ import {getGame } from "./gamesCRUD.js"
 import bodyParser from 'body-parser'
 
 const app = express();
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.urlencoded({extended : true}))
 const localStorage = new LocalStorage('./');
 
+app.get("/",(req,res)=>{
+    res.render("index",{tittle:"TEST"})
+
+})
 
 
 
