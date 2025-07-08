@@ -21,11 +21,15 @@ app.get("/games",(req,res)=>{
     
     res.json(games);    
 });
+
+
 app.get("/games/:id",(req,res)=>{
     const id = req.params.id;
     res.send(`ID reçue : ${id}`);
     
 })
+
+
 app.post("/addGame",(req,res)=>{
     const newGame = req.body;
     addGame(newGame)
