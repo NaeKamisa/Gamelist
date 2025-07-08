@@ -1,9 +1,12 @@
 import express from "express"
 import {LocalStorage} from 'node-localstorage'
 import {addGame} from './gamesCRUD.js'
+import bodyParser from 'body-parser'
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({extended : true}))
 const localStorage = new LocalStorage('./');
 
 
@@ -30,14 +33,27 @@ app.get("/games/:id",(req,res)=>{
 })
 
 
-app.post("/addGame",(req,res)=>{
-    const newGame = req.body;
-    addGame(newGame)
-    console.log(newGame);  
-    res.json(newGame);
-    
+app.get("/addgame",(req,res)=>{
+    res.send("<form action='/addGame' method='POST'>\
+    <label for='name'>Nom :</label>\
+    <input type='text' name='name' required><br><br>\
+    <label for='price'>Prix :</label>\
+    <input type='number' name='price' required><br><br>\
+    <label for='desc'>Description :</label>\
+    <textarea name='desc' required></textarea><br><br>\
+    <button type='submit'>Envoyer</button>\
+  </form>");
+  
 })
 
+
+app.post("/addgame",(req,res)=>{
+    const newGame = req.body;
+    console.log(newGame)
+
+    addGame(newGame)
+    res.send("Test")
+})
 
 
 
