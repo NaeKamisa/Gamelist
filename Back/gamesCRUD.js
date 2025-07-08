@@ -20,11 +20,14 @@ export function addGame (newGame){
 export function getGame(){
         const gamesJSON = localStorage.getItem("games");
         
-        let GamesGetter = null 
+        let gamesGetter = []
         if(gamesJSON != null){
-            GamesGetter = JSON.parse(gamesJSON);
+            gamesGetter = JSON.parse(gamesJSON);
         }else{
-            console.log("item games unknow");  
+            gamesGetter.push("Aucun jeux disponible") 
         }
+        return gamesGetter
 }
+
+
 
