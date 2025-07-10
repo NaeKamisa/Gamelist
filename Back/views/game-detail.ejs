@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game details</title>
+</head>
+<body>
+    <h1><%= game.name %></h1>
+    <p><strong>Prix :</strong> <%= game.price %>€</p>
+    <p><strong>Description :</strong><br><%= game.desc %></p>
+    <hr>
+
+    <button onclick="toggleForm()">🛠 Modifier ce jeu</button>
+
+    <div id="editForm" style="display:none; margin-top:20px;">
+      <h2>Modification</h2>
+      <form action="/editgame" method="POST">
+        <input type="hidden" name="oldName" value="<%= game.name %>">
+        <label>Nom :</label>
+        <input type="text" name="name" value="<%= game.name %>" required><br><br>
+        <label>Prix :</label>
+        <input type="number" name="price" value="<%= game.price %>" required><br><br>
+        <label>Description :</label><br>
+        <textarea name="desc" required><%=game.desc %></textarea><br><br>
+        <button type="submit">Enregistrer les modifications</button>
+      </form>
+    </div>
+
+    <script>
+      function toggleForm() {
+        const form = document.getElementById('editForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      }
+    </script>
+
+    <br>
+    <a href="/games">← Retour à la liste</a>
+</body>
+</html>

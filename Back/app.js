@@ -52,47 +52,17 @@ res.send(html);
 
 
 app.get("/games/:name",(req,res)=>{
+
     const name = req.params.name
     const list = getGame()
-    let html = "<p>aucune produit</p>"
+    let game = [{"name":"null","price":0,"desc":"aucun produit\r\n"}]
     list.forEach((val,index)=>{
 
         if (val.name === name) {
-   html = `
-    <h1>${val.name}</h1>
-    <p><strong>Prix :</strong> ${val.price}€</p>
-    <p><strong>Description :</strong><br>${val.desc}</p>
-    <hr>
-
-    <button onclick="toggleForm()">🛠 Modifier ce jeu</button>
-
-    <div id="editForm" style="display:none; margin-top:20px;">
-      <h2>Modification</h2>
-      <form action="/editgame" method="POST">
-        <input type="hidden" name="oldName" value="${val.name}">
-        <label>Nom :</label>
-        <input type="text" name="name" value="${val.name}" required><br><br>
-        <label>Prix :</label>
-        <input type="number" name="price" value="${val.price}" required><br><br>
-        <label>Description :</label><br>
-        <textarea name="desc" required>${val.desc}</textarea><br><br>
-        <button type="submit">Enregistrer les modifications</button>
-      </form>
-    </div>
-
-    <script>
-      function toggleForm() {
-        const form = document.getElementById('editForm');
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-      }
-    </script>
-
-    <br>
-    <a href="/games">← Retour à la liste</a>
-  `;
-}
+            game = val
+    }
 })
-res.send(html);
+res.render("game-detail",{game:game});
 })
 
 app.post("/editgame", (req, res) => {
